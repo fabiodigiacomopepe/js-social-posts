@@ -116,7 +116,7 @@ for (let i = 0; i < posts.length; i++) {
     formatDate (data.innerHTML);            // Innesto l'HTML del DIV data, in una funzione
     function formatDate (input) {
         var datePart = input.match(/\d+/g),
-        year = datePart[0].substring(2),
+        year = datePart[0],
         month = datePart[1], day = datePart[2];
         nuovaData = day+'/'+month+'/'+year;
     }
