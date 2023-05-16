@@ -70,6 +70,7 @@ BONUS possibili
 -Al click su un pulsante “Mi Piace” di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 */
 
+// Innesto in HTML dentro DIV container il template literal per creare il singolo post
 posts.forEach(element => {
     document.getElementById("container").innerHTML +=
     `<div class="post">
@@ -104,28 +105,36 @@ posts.forEach(element => {
     </div>`;
 });
 
+// Creo array per post piaciuti e lo imposto vuoto
 let postPiaciuti = [];
 
+// Creo ciclo per gestire like/unlike
 for (let i = 0; i < posts.length; i++) {
-    const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];
+    // Collego ad una costante il pulsante mi piace
+    const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];    // con [i] ad ogni giro cambia
     console.log(pulsanteMiPiace);
+
+    // Aggiungo un evento al click del pulsante
     pulsanteMiPiace.addEventListener("click", nLike);
     function nLike() {
+        // Collego ad una costante il contatore dei mi piace
         let contatore = document.getElementById("like-counter-"+[i+1]);
         console.log(contatore);
 
+        // SE pulsante mi piace è stato già cliccato
         if (pulsanteMiPiace.classList.contains("like-button--liked")) {
-            pulsanteMiPiace.classList.remove("like-button--liked");
-            contatore.innerHTML = (parseInt(contatore.innerHTML) - 1);
-            const indice = postPiaciuti.indexOf(i+1);
-            if (indice > -1) {
-                postPiaciuti.splice(indice, 1);
+            pulsanteMiPiace.classList.remove("like-button--liked");         // Rimuovo classe "like-button--liked
+            contatore.innerHTML = (parseInt(contatore.innerHTML) - 1);      // Decremento contatore di 1
+            // Rimuovo ID del post in array post piaciuti
+            const indice = postPiaciuti.indexOf(i+1);                       // Cerco POSIZIONE dell'ID (che sarebbe i+1) del post, in array postPiaciuti
+            if (indice > -1) {                                              // Eseguo SOLO quando viene trovato l'elemento
+                postPiaciuti.splice(indice, 1);                             // Alla posizione dell'indice (quindi dove si trova ID) rimuovo l'elemento (quindi se stesso)
             }
             console.log(postPiaciuti);
-        } else {
-            pulsanteMiPiace.classList.add("like-button--liked");
-            contatore.innerHTML = (parseInt(contatore.innerHTML) + 1);
-            postPiaciuti.push(i+1);
+        } else { // ALTRIMENTI (se non è stato già cliccato)
+            pulsanteMiPiace.classList.add("like-button--liked");            // Aggiungo classe "like-button--liked
+            contatore.innerHTML = (parseInt(contatore.innerHTML) + 1);      // Incremento contatore di 1
+            postPiaciuti.push(i+1);                                         // Pusho ID del post in array post piaciuti
             console.log(postPiaciuti);
         }
     }
