@@ -110,6 +110,18 @@ let postPiaciuti = [];
 
 // Creo ciclo per gestire like/unlike
 for (let i = 0; i < posts.length; i++) {
+
+    // Collego a costante "data" la data del post
+    const data = document.querySelectorAll(".post-meta__time")[i];
+    formatDate (data.innerHTML);            // Innesto l'HTML del DIV data, in una funzione
+    function formatDate (input) {
+        var datePart = input.match(/\d+/g),
+        year = datePart[0].substring(2),
+        month = datePart[1], day = datePart[2];
+        nuovaData = day+'/'+month+'/'+year;
+    }
+    data.innerHTML = `${nuovaData}`;        // Sostituisco vecchia data con nuova 
+
     // Collego ad una costante il pulsante mi piace
     const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];    // con [i] ad ogni giro cambia
     console.log(pulsanteMiPiace);
@@ -123,7 +135,7 @@ for (let i = 0; i < posts.length; i++) {
 
         // SE pulsante mi piace è stato già cliccato
         if (pulsanteMiPiace.classList.contains("like-button--liked")) {
-            pulsanteMiPiace.classList.remove("like-button--liked");         // Rimuovo classe "like-button--liked
+            pulsanteMiPiace.classList.remove("like-button--liked");         // Rimuovo classe "like-button--liked"
             contatore.innerHTML = (parseInt(contatore.innerHTML) - 1);      // Decremento contatore di 1
             // Rimuovo ID del post in array post piaciuti
             const indice = postPiaciuti.indexOf(i+1);                       // Cerco POSIZIONE dell'ID (che sarebbe i+1) del post, in array postPiaciuti
@@ -132,7 +144,7 @@ for (let i = 0; i < posts.length; i++) {
             }
             console.log(postPiaciuti);
         } else { // ALTRIMENTI (se non è stato già cliccato)
-            pulsanteMiPiace.classList.add("like-button--liked");            // Aggiungo classe "like-button--liked
+            pulsanteMiPiace.classList.add("like-button--liked");            // Aggiungo classe "like-button--liked"
             contatore.innerHTML = (parseInt(contatore.innerHTML) + 1);      // Incremento contatore di 1
             postPiaciuti.push(i+1);                                         // Pusho ID del post in array post piaciuti
             console.log(postPiaciuti);
