@@ -91,15 +91,42 @@ posts.forEach(element => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                    Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                 </div>
             </div> 
         </div>            
-    </div>`
+    </div>`;
 });
+
+let postPiaciuti = [];
+
+for (let i = 0; i < posts.length; i++) {
+    const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];
+    console.log(pulsanteMiPiace);
+    pulsanteMiPiace.addEventListener("click", nLike);
+    function nLike() {
+        let contatore = document.getElementById("like-counter-"+[i+1]);
+        console.log(contatore);
+
+        if (pulsanteMiPiace.classList.contains("like-button--liked")) {
+            pulsanteMiPiace.classList.remove("like-button--liked");
+            contatore.innerHTML = (parseInt(contatore.innerHTML) - 1);
+            const indice = postPiaciuti.indexOf(i+1);
+            if (indice > -1) {
+                postPiaciuti.splice(indice, 1);
+            }
+            console.log(postPiaciuti);
+        } else {
+            pulsanteMiPiace.classList.add("like-button--liked");
+            contatore.innerHTML = (parseInt(contatore.innerHTML) + 1);
+            postPiaciuti.push(i+1);
+            console.log(postPiaciuti);
+        }
+    }
+}
