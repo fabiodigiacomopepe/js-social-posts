@@ -111,6 +111,17 @@ let postPiaciuti = [];
 // Creo ciclo per gestire like/unlike
 for (let i = 0; i < posts.length; i++) {
 
+    // Collego a costante "immagineProfilo" la profile icon del post
+    const immagineProfilo = document.querySelectorAll("div.post-meta__icon > img")[i];
+    // Se la profil icon da errore (non è presente/è settata su null), esegui funzione mostraInizialiProfilo
+    immagineProfilo.addEventListener("error", function mostraInizialiProfilo() {
+        const containerFotoProfilo = document.querySelectorAll(".post-meta__icon")[i];      // Seleziono il DIV che contiene l'img
+        const nomeAutore = document.querySelectorAll(".post-meta__author")[i].innerHTML;    // Seleziono nome dell'autore del post
+        var matches = nomeAutore.match(/\b(\w)/g);                                          // Prendo INZIALE di ogni parola e getto dentro ad un array                         
+        var acronym = matches.join('');                                                     // Ricompongo le lettere dentro all'array
+        containerFotoProfilo.innerHTML = `<div class="profile-pic-error">${acronym}</div>`; // Inietto risultato al posto dell'img
+    })
+
     // Collego a costante "data" la data del post
     const data = document.querySelectorAll(".post-meta__time")[i];
     formatDate (data.innerHTML);            // Innesto l'HTML del DIV data, in una funzione
@@ -124,7 +135,6 @@ for (let i = 0; i < posts.length; i++) {
 
     // Collego ad una costante il pulsante mi piace
     const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];    // con [i] ad ogni giro cambia
-    console.log(pulsanteMiPiace);
     // Tolgo comportamento base al click del pulsante mi piace (a - href)
     pulsanteMiPiace.addEventListener("click", function(event){
         event.preventDefault()

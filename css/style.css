@@ -78,6 +78,18 @@ h1 {
     border-radius: 50%;
 }
 
+.profile-pic-error {
+    border-radius: 50%;
+    width: 60px;
+    aspect-ratio: 1;
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .profile-pic-default span {
     font-weight: bold;
     color: #023047;
