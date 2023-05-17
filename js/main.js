@@ -124,20 +124,21 @@ for (let i = 0; i < posts.length; i++) {
 
     // Collego a costante "data" la data del post
     const data = document.querySelectorAll(".post-meta__time")[i];
-    formatDate (data.innerHTML);            // Innesto l'HTML del DIV data, in una funzione
+    formatDate (data.innerHTML);                    // Innesto l'HTML del DIV data, in una funzione
     function formatDate (input) {
-        var datePart = input.match(/\d+/g),
-        year = datePart[0],
-        month = datePart[1], day = datePart[2];
-        nuovaData = day+'/'+month+'/'+year;
+        var datePart = input.match(/\d+/g),         // Divido data in 3 elementi e li inserisco in un array
+        year = datePart[0],                         // Setto che l'anno sarà l'elemento a indice 0 nell'array
+        month = datePart[1],                        // Setto che il mese sarà l'elemento a indice 1 nell'array
+        day = datePart[2];                          // Setto che il giorno sarà l'elemento a indice 2 nell'array
+        nuovaData = day+'/'+month+'/'+year;         // Setto nuovaData = giorno/mese/anno
     }
-    data.innerHTML = `${nuovaData}`;        // Sostituisco vecchia data con nuova 
+    data.innerHTML = `${nuovaData}`;                // Sostituisco vecchia data con nuova 
 
     // Collego ad una costante il pulsante mi piace
     const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];    // con [i] ad ogni giro cambia
     // Tolgo comportamento base al click del pulsante mi piace (a - href)
     pulsanteMiPiace.addEventListener("click", function(event){
-        event.preventDefault()
+        event.preventDefault()      // Così la pagina non si ricaricherà più ad ogni click
     });
 
     // Aggiungo un evento al click del pulsante
@@ -145,7 +146,6 @@ for (let i = 0; i < posts.length; i++) {
     function nLike() {
         // Collego ad una costante il contatore dei mi piace
         let contatore = document.getElementById("like-counter-"+[i+1]);
-        console.log(contatore);
 
         // SE pulsante mi piace è stato già cliccato
         if (pulsanteMiPiace.classList.contains("like-button--liked")) {
