@@ -92,7 +92,7 @@ posts.forEach(element => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" data-postid="${element.id}">
+                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -125,6 +125,10 @@ for (let i = 0; i < posts.length; i++) {
     // Collego ad una costante il pulsante mi piace
     const pulsanteMiPiace = document.querySelectorAll(".like-button.js-like-button")[i];    // con [i] ad ogni giro cambia
     console.log(pulsanteMiPiace);
+    // Tolgo comportamento base al click del pulsante mi piace (a - href)
+    pulsanteMiPiace.addEventListener("click", function(event){
+        event.preventDefault()
+    });
 
     // Aggiungo un evento al click del pulsante
     pulsanteMiPiace.addEventListener("click", nLike);
